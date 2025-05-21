@@ -3,13 +3,16 @@ from pydantic import BaseModel
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
 
-from langchain.prompts import PromptTemplate
-
-from .agent.llm import PROMPT_TEMPLATE, get_llm
-from .memory.graph_memory import get_driver, save_interaction
+from .agent.llm import get_llm, PROMPT_TEMPLATE
 from .memory.vector_memory import get_vector_store
+from .memory.graph_memory import get_driver, save_interaction
 
 app = FastAPI(title="Jarvis API")
+
+neo4j_driver = get_driver()
+vector_store = get_vector_store()
+
+prompt = PROMPT_TEMPLATE
 
 memory = ConversationBufferMemory()
 prompt = PromptTemplate.from_template(PROMPT_TEMPLATE)
