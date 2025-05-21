@@ -4,3 +4,4 @@ langchain
 chromadb
 neo4j
 langdetect
+pytest
