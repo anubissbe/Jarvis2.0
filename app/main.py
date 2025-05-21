@@ -1,12 +1,13 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+
 from .agent.llm import get_llm
 from .memory.graph_memory import get_driver, save_interaction
 from .memory.vector_memory import get_vector_store
 
 
 class SimpleChain:
-    """Minimal stand-in for ConversationChain."""
+    """Minimal stand-in for a conversation chain."""
 
     def __init__(self, llm):
         self.llm = llm
