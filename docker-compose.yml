@@ -1,0 +1,28 @@
+version: '3'
+services:
+  jarvis:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - chroma
+      - neo4j
+      - ollama
+  chroma:
+    image: chromadb/chroma
+    volumes:
+      - chroma_data:/chroma/chroma
+  neo4j:
+    image: neo4j:5
+    environment:
+      - NEO4J_AUTH=neo4j/password
+    volumes:
+      - neo4j_data:/data
+  ollama:
+    image: ollama/ollama
+    volumes:
+      - ollama_data:/root/.ollama
+volumes:
+  chroma_data:
+  neo4j_data:
+  ollama_data:
