@@ -24,7 +24,7 @@ class ChatRequest(BaseModel):
 async def chat(request: ChatRequest):
     try:
         response = chain.predict(input=request.message)
-        vector_store.add_texts([f"User: {request.message}\nJarvis: {response}"])
+
         save_interaction(neo4j_driver, request.message, response)
         return {"response": response}
     except Exception as e:
