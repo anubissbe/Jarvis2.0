@@ -3,7 +3,10 @@ from langchain.prompts import PromptTemplate
 
 from ..config import settings
 
-PROMPT_TEMPLATE = """You are Jarvis, a helpful bilingual assistant. Respond in the language of the user (English or Dutch).\n{history}\nUser: {input}\nJarvis:"""
+PROMPT_TEMPLATE = (
+    """You are Jarvis, a helpful bilingual assistant. Respond in the language of the user (English or Dutch).\n"
+    "{history}\nUser: {input}\nJarvis:"""
+)
 
 prompt = PromptTemplate(
     input_variables=["history", "input"],
