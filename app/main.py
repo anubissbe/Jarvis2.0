@@ -1,4 +1,3 @@
-
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from langchain.chains import ConversationChain
@@ -6,12 +5,7 @@ from langchain.memory import ConversationBufferMemory
 
 from .agent.llm import get_llm, prompt
 
-from .memory.graph_memory import get_driver, save_interaction
-
 app = FastAPI(title="Jarvis API")
-
-vector_store = get_vector_store()
-neo4j_driver = get_driver()
 
 memory = ConversationBufferMemory()
 chain = ConversationChain(llm=get_llm(), memory=memory, prompt=prompt)
@@ -23,7 +17,7 @@ class ChatRequest(BaseModel):
 @app.post("/chat")
 async def chat(request: ChatRequest):
     try:
-
+        response = chain.predict(input=request.message)
         return {"response": response}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
