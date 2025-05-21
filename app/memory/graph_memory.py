@@ -18,6 +18,8 @@ def get_driver():
 
 def save_interaction(driver, user_message: str, ai_message: str) -> None:
     """Persist a user/assistant message pair to Neo4j."""
+    if driver is None:
+        return
     with driver.session() as session:
         session.run(
             "MERGE (u:User {id: 1}) "
