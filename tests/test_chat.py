@@ -1,5 +1,6 @@
 from fastapi.testclient import TestClient
 
+import app.main
 from app.main import app
 
 client = TestClient(app)
@@ -12,11 +13,12 @@ def test_chat_endpoint():
     assert data == {"response": "Echo: Hello"}
 
 
-def test_multiple_messages():
-    first = client.post("/chat", json={"message": "Hi"})
-    assert first.status_code == 200
-    assert first.json() == {"response": "Echo: Hi"}
+def test_chat_error_handling(monkeypatch):
+    async def raise_error(*args, **kwargs):
+        raise RuntimeError("boom")
 
-    second = client.post("/chat", json={"message": "How are you?"})
-    assert second.status_code == 200
-    assert second.json() == {"response": "Echo: How are you?"}
+    monkeypatch.setattr(app.main.chain, "apredict", raise_error)
+    error_client = TestClient(app)
+    resp = error_client.post("/chat", json={"message": "Hi"})
+    assert resp.status_code == 500
+    assert resp.json() == {"detail": "boom"}
