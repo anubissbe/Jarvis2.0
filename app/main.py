@@ -38,6 +38,13 @@ async def chat(request: ChatRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.on_event("shutdown")
+def shutdown_event() -> None:
+    """Close the Neo4j driver if it was created."""
+    if neo4j_driver is not None:
+        neo4j_driver.close()
+
+
 if __name__ == "__main__":
     import uvicorn
 
