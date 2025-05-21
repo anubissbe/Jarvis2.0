@@ -16,13 +16,16 @@ def get_driver():
     )
 
 
-def save_interaction(driver, user_message: str, bot_response: str) -> None:
-    """Persist a single interaction to Neo4j."""
-    query = (
-        "MERGE (u:User {id: 1}) "
-        "CREATE (i:Interaction {user_message: $user_message, bot_response: $bot_response, timestamp: timestamp()}) "
-        "MERGE (u)-[:MADE]->(i)"
-    )
+def save_interaction(driver, user_message: str, ai_message: str) -> None:
+    """Persist a user/assistant message pair to Neo4j."""
     with driver.session() as session:
-        session.run(query, user_message=user_message, bot_response=bot_response)
+        session.run(
+            "MERGE (u:User {id: 1}) "
+            "CREATE (u)-[:SENT]->(:Message {text: $user_msg}) "
+            "CREATE (u)-[:RECEIVED]->(:Message {text: $ai_msg})",
+            user_msg=user_message,
+            ai_msg=ai_message,
+        )
+
+
 

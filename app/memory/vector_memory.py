@@ -1,9 +1,11 @@
+from chromadb import PersistentClient
+from langchain.vectorstores import Chroma
+from langchain.embeddings import HuggingFaceEmbeddings
 
-import chromadb
 
-from ..config import settings
+def get_vector_store() -> Chroma:
+    """Return a Chroma vector store backed by a persistent client."""
+    client = PersistentClient(path="./chroma")
+    embeddings = HuggingFaceEmbeddings()
+    return Chroma(client=client, embedding_function=embeddings)
 
-
-def get_vector_store():
-    """Return a ChromaDB client for storing conversation embeddings."""
-    return chromadb.HttpClient(host=settings.chroma_db_url)
