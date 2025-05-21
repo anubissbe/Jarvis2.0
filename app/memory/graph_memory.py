@@ -10,13 +10,3 @@ def get_driver():
     )
 
 
-def save_interaction(driver, user_message: str, ai_response: str) -> None:
-    """Persist the interaction in Neo4j for long-term memory."""
-    query = (
-        "MERGE (u:User {id: 'default'}) "
-        "CREATE (q:Message {text: $q})-[:FROM]->(u) "
-        "CREATE (a:Message {text: $a})-[:FROM]->(u) "
-        "CREATE (q)-[:REPLIED_WITH]->(a)"
-    )
-    with driver.session() as session:
-        session.run(query, q=user_message, a=ai_response)

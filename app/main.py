@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from langchain.chains import ConversationChain
@@ -23,7 +24,7 @@ class ChatRequest(BaseModel):
 async def chat(request: ChatRequest):
     try:
         response = chain.predict(input=request.message)
-        vector_store.add_texts([request.message, response])
+
         save_interaction(neo4j_driver, request.message, response)
         return {"response": response}
     except Exception as e:
@@ -32,4 +33,5 @@ async def chat(request: ChatRequest):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
 
