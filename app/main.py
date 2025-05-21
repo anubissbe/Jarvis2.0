@@ -1,7 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferMemory
 
-from .agent.llm import get_llm
+from .agent.llm import get_llm, prompt
+from .memory.vector_memory import get_vector_store
 from .memory.graph_memory import get_driver, save_interaction
 from .memory.vector_memory import get_vector_store
 
@@ -23,11 +26,8 @@ class ChatRequest(BaseModel):
 @app.post("/chat")
 async def chat(request: ChatRequest):
     try:
-        user_message = request.message
-        conversation_history.append({"role": "user", "content": user_message})
-        response = llm.generate(user_message)
-        conversation_history.append({"role": "assistant", "content": response})
-        save_interaction(neo4j_driver, user_message, response)
+        response = chain.predict(input=request.message)
+        save_interaction(neo4j_driver, request.message, response)
         return {"response": response}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -35,5 +35,4 @@ async def chat(request: ChatRequest):
 
 if __name__ == "__main__":
     import uvicorn
-
     uvicorn.run(app, host="0.0.0.0", port=8000)

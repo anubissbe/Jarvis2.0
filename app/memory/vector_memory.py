@@ -1,11 +1,8 @@
-try:
-    from chromadb import PersistentClient
-except ImportError:  # pragma: no cover - chromadb not installed in testing env
-    PersistentClient = None
+from chromadb import HttpClient
+
+from ..config import settings
 
 
-def get_vector_store():
-    """Return a ChromaDB client if available."""
-    if PersistentClient is None:
-        return None
-    return PersistentClient()
+def get_vector_store() -> HttpClient:
+    """Return a ChromaDB HTTP client connected to the configured server."""
+    return HttpClient(host=settings.chroma_db_url)
