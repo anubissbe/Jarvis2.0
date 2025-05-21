@@ -4,12 +4,9 @@ from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
 
 from .agent.llm import get_llm, prompt
-from .memory.vector_memory import (
-    get_vector_store,
-    add_conversation_snippet,
-    query_conversation_snippets,
-)
-from .memory.graph_memory import get_driver
+
+from .memory.graph_memory import get_driver, save_interaction
+from .memory.vector_memory import get_vector_store, add_message
 
 app = FastAPI(title="Jarvis API")
 
@@ -24,9 +21,14 @@ class ChatRequest(BaseModel):
 @app.post("/chat")
 async def chat(request: ChatRequest):
     try:
-        response = chain.predict(input=request.message)
-        add_conversation_snippet(request.message, {"role": "user"})
-        add_conversation_snippet(response, {"role": "assistant"})
+        user_message = request.message
+        response = chain.predict(input=user_message)
+
+        # Persist messages
+        add_message(vector_store, user_message)
+        add_message(vector_store, response)
+        save_interaction(neo4j_driver, user_message, response)
+
         return {"response": response}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
