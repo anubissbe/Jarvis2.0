@@ -1,22 +1,11 @@
-from langchain.chat_models import ChatOllama
-from langchain.prompts import PromptTemplate
+class SimpleLLM:
+    """A minimal LLM implementation used for testing."""
 
-from ..config import settings
-
-PROMPT_TEMPLATE = (
-    "You are Jarvis, a helpful bilingual assistant. Respond in the language of the "
-    "user (English or Dutch).\n"
-    "{history}\n"
-    "Context: {context}\n"
-    "User: {input}\n"
-    "Jarvis:"
-)
-
-prompt = PromptTemplate(
-    input_variables=["history", "input", "context"],
-    template=PROMPT_TEMPLATE,
-)
+    def generate(self, message: str) -> str:
+        """Return a simple echo response."""
+        return f"Echo: {message}"
 
 
-def get_llm():
-    return ChatOllama(base_url=settings.ollama_base_url, model="llama3")
+def get_llm() -> SimpleLLM:
+    """Return the LLM instance."""
+    return SimpleLLM()
