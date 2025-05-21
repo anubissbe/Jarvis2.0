@@ -23,3 +23,7 @@ uvicorn app.main:app --reload
 Then POST to `/chat` with a JSON body containing `message`.
 
 For more details on the overall architecture, see `architectdesign.md`.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
