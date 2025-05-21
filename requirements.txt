@@ -1,5 +1,6 @@
-fastapi
-uvicorn
-langchain
-chromadb
-neo4j
+fastapi==0.110.0
+uvicorn==0.29.0
+langchain==0.1.14
+chromadb==0.4.24
+neo4j==5.14.0
+langdetect==1.0.9
