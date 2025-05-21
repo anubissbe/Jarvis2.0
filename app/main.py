@@ -18,9 +18,9 @@ class SimpleChain:
 
 app = FastAPI(title="Jarvis API")
 
+# Initialize dependencies
 chain = SimpleChain(llm=get_llm())
 neo4j_driver = get_driver()
-vector_store = get_vector_store()
 
 
 class ChatRequest(BaseModel):
