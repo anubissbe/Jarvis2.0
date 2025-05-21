@@ -26,6 +26,3 @@ def save_interaction(driver, user_message: str, ai_message: str) -> None:
             user_msg=user_message,
             ai_msg=ai_message,
         )
-
-
-

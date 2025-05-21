@@ -8,4 +8,3 @@ def get_vector_store() -> Chroma:
     client = PersistentClient(path="./chroma")
     embeddings = HuggingFaceEmbeddings()
     return Chroma(client=client, embedding_function=embeddings)
-
