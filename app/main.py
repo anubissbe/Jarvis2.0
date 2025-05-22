@@ -32,17 +32,17 @@ async def chat(request: ChatRequest):
     try:
         response = await chain.apredict(input=request.message)
         if neo4j_driver is not None:
-            save_interaction(neo4j_driver, request.message, response)
+            await save_interaction(neo4j_driver, request.message, response)
         return {"response": response}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.on_event("shutdown")
-def shutdown_event() -> None:
+async def shutdown_event() -> None:
     """Close the Neo4j driver if it was created."""
     if neo4j_driver is not None:
-        neo4j_driver.close()
+        await neo4j_driver.close()
 
 
 if __name__ == "__main__":
