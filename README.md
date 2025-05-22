@@ -32,3 +32,12 @@ For more details on the overall architecture, see `architectdesign.md`.
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## Testing
+
+Install the development requirements and run the test suite using `pytest`:
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
