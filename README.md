@@ -14,9 +14,13 @@ Jarvis 2.0 is a minimal FastAPI-based service that demonstrates a bilingual AI a
    pip install -r requirements-dev.txt
    ```
 
-4. Build and start the Docker services:
+**Opmerking:** Stappen 1–3 zijn alleen nodig voor lokaal draaien of het uitvoeren van tests. Als je uitsluitend Docker gebruikt, kun je deze stappen overslaan.
+
+4. Docker containers opstarten:
    ```bash
    docker compose up --build
+   # of
+   ./jarvis.sh
    ```
    Once running, browse to `http://localhost:8080` to access OpenWebUI. The API
    itself remains available on `http://localhost:8000`.
@@ -49,17 +53,12 @@ Then POST to `/chat` with a JSON body containing `message`.
 
 ### Using `jarvis.sh`
 
-The `jarvis.sh` helper script bundles a few convenience steps. Run it from the
-project root to build and launch the Docker services and monitor their logs:
+Het script `jarvis.sh` controleert of Docker is geïnstalleerd, start de
+containers en toont de logs. Start het vanuit de projectroot:
 
 ```bash
 ./jarvis.sh
 ```
-
-It first compiles the Python files, verifies that Docker and `docker-compose`
-are installed, and then brings the containers up in the background. Any error
-messages from the services will be collected in `error.log` while the script
-streams the combined logs to your terminal.
 
 For more details on the overall architecture, see `architectdesign.md`.
 
