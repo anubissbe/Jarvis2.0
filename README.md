@@ -9,10 +9,16 @@ Jarvis 2.0 is a minimal FastAPI-based service that demonstrates a bilingual AI a
    ```bash
    pip install -r requirements.txt
    ```
-3. (Optional) Start the full stack with Docker Compose:
+3. (Optional) Start the full stack with Docker Compose. This will launch the
+   API, databases, Ollama, and OpenWebUI:
    ```bash
    docker compose up --build
    ```
+   Once running, browse to `http://localhost:8080` to access OpenWebUI. The API
+   itself remains available on `http://localhost:8000`.
+   Environment variables such as `OLLAMA_BASE_URL` and `WEBUI_SECRET_KEY` are
+   defined in `docker-compose.yml` and mirror the settings expected by
+   `app/config.py`.
 
 ## Usage
 
