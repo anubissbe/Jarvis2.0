@@ -14,6 +14,7 @@ Jarvis 2.0 is a minimal FastAPI-based service that demonstrates a bilingual AI a
    pip install -r requirements-dev.txt
    ```
 
+4. Build and start the Docker services:
    ```bash
    docker compose up --build
    ```
@@ -45,6 +46,20 @@ Run the API locally:
 uvicorn app.main:app --reload
 ```
 Then POST to `/chat` with a JSON body containing `message`.
+
+### Using `jarvis.sh`
+
+The `jarvis.sh` helper script bundles a few convenience steps. Run it from the
+project root to build and launch the Docker services and monitor their logs:
+
+```bash
+./jarvis.sh
+```
+
+It first compiles the Python files, verifies that Docker and `docker-compose`
+are installed, and then brings the containers up in the background. Any error
+messages from the services will be collected in `error.log` while the script
+streams the combined logs to your terminal.
 
 For more details on the overall architecture, see `architectdesign.md`.
 
