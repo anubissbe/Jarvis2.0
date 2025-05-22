@@ -1,10 +1,8 @@
-import os
-import tempfile
+# ruff: noqa: E402
 import pytest
 
 chromadb = pytest.importorskip("chromadb")
 
-from langchain.vectorstores import Chroma
 from app.memory import vector_memory
 
 
