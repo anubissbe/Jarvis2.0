@@ -1,6 +1,6 @@
 # Jarvis 2.0
 
-Jarvis 2.0 is a minimal FastAPI-based service that demonstrates a bilingual AI assistant. It uses a simple LLM implementation and includes optional vector and graph memory backends.
+Jarvis 2.0 is a minimal FastAPI-based service that demonstrates a bilingual AI assistant. It uses a simple LLM implementation and includes an optional graph memory backend. A vector store helper is provided but not used in the default API.
 
 ## Setup
 
