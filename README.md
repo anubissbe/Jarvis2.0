@@ -9,6 +9,10 @@ Jarvis 2.0 is a minimal FastAPI-based service that demonstrates a bilingual AI a
    ```bash
    pip install -r requirements.txt
    ```
+3. Install dev dependencies for testing:
+   ```bash
+   pip install -r requirements-dev.txt
+   ```
 
    ```bash
    docker compose up --build
