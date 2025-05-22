@@ -11,6 +11,12 @@ PROMPT_TEMPLATE = (
     "{history}\nUser: {input}\nJarvis:"
 )
 
+# ``prompt`` previously exposed a ``PromptTemplate`` from LangChain. The current
+# minimal implementation no longer relies on LangChain, but other modules may
+# still attempt to import ``prompt``. Provide a simple string fallback to avoid
+# import errors if older code expects this name.
+prompt = PROMPT_TEMPLATE
+
 
 def get_llm() -> SimpleLLM:
     """Return the LLM instance."""
