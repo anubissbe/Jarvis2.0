@@ -24,6 +24,17 @@ services:
       - NEO4J_AUTH=neo4j/password
     volumes:
       - neo4j_data:/data
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    ports:
+      - "8080:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - WEBUI_SECRET_KEY=change-me
+    volumes:
+      - open_webui_data:/app/backend/data
+    depends_on:
+      - ollama
   ollama:
     image: ollama/ollama
     volumes:
@@ -32,3 +43,4 @@ volumes:
   chroma_data:
   neo4j_data:
   ollama_data:
+  open_webui_data:
