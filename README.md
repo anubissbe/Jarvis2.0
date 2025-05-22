@@ -19,9 +19,24 @@ Jarvis 2.0 is a minimal FastAPI-based service that demonstrates a bilingual AI a
    ```
    Once running, browse to `http://localhost:8080` to access OpenWebUI. The API
    itself remains available on `http://localhost:8000`.
+
    Environment variables such as `OLLAMA_BASE_URL` and `WEBUI_SECRET_KEY` are
    defined in `docker-compose.yml` and mirror the settings expected by
    `app/config.py`.
+
+## Configuration
+
+Copy `.env.example` to `.env` and update the values to point at your own
+services. At a minimum you should review the following variables:
+
+- `OLLAMA_BASE_URL` - URL for the Ollama LLM service.
+- `CHROMA_DB_URL` - URL for the ChromaDB vector store (if used).
+- `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD` - connection settings for the
+  Neo4j graph database.
+- `WEBUI_SECRET_KEY` - secret key for securing OpenWebUI sessions.
+
+These environment variables must be configured before running the containers so
+that Jarvis can connect to the required services.
 
 ## Usage
 
