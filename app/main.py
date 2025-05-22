@@ -3,7 +3,6 @@ from pydantic import BaseModel
 
 from .agent.llm import get_llm
 from .memory.graph_memory import get_driver, save_interaction
-from .memory.vector_memory import get_vector_store
 
 
 class SimpleChain:
