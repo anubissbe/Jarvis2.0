@@ -9,7 +9,9 @@ Jarvis 2.0 is a minimal FastAPI-based service that demonstrates a bilingual AI a
    ```bash
    pip install -r requirements.txt
    ```
-3. (Optional) Start the full stack with Docker Compose:
+3. Copy `.env.example` to `.env` and update the values if needed.
+   The required variables are documented in that file.
+4. (Optional) Start the full stack with Docker Compose:
    ```bash
    docker compose up --build
    ```
