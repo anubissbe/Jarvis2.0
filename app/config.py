@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     neo4j_user: str = "neo4j"
     neo4j_password: str = "password"
 
-    class Config:
+    class Config(BaseSettings.Config):
         env_file = ".env"
 
 
