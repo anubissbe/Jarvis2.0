@@ -1,4 +1,4 @@
-fastapi==0.110.0
+fastapi==0.115.13
 uvicorn==0.29.0
 langchain==0.1.14
 chromadb==0.4.24
